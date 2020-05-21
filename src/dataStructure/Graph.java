@@ -10,14 +10,18 @@ public class Graph{
         GraphMatrix GM = new GraphMatrix(sc.nextInt(), sc.nextInt(), sc.nextInt());
 
         clearGraph(GM);
+
         if(Graph.createGraph(GM)){
             System.out.println("图创建成功");
         }
+
         //图的输出和遍历
         Graph.outGraph(GM);
+
 //        Graph.deepTravGraph(GM);//dfs
         Graph.bfsTravGraph(GM);//bfs
-/*      广度优先遍历，的结果如下，先遍历，A以及和A相连的顶点B D,后遍历B以及与B相连的顶点C(A本身已遍历过，此处不再遍历)
+        /*
+        广度优先遍历，的结果如下，先遍历，A以及和A相连的顶点B D,后遍历B以及与B相连的顶点C(A本身已遍历过，此处不再遍历)
         A	B	C	D
         A	Z	3	Z	1
         B	3	Z	2	Z
@@ -27,7 +31,7 @@ public class Graph{
         当前遍历顶点(广度优先遍历while)：B
         当前遍历顶点(广度优先遍历while)：D
         当前遍历顶点(广度优先遍历while)：C
-                */
+        */
         sc.close();
     }
 
@@ -36,6 +40,7 @@ public class Graph{
         int i,j = 0,k;
         char EstartV,EendV; //边起止顶点
         int weigth;
+
         Scanner input = new Scanner(System.in);
         System.out.println("输入图中各顶点信息：");
         for (i = 0; i < GM.VertexNum; i++) {
@@ -62,14 +67,13 @@ public class Graph{
         return true;
     }
 
-    //清空图
-    static boolean clearGraph(GraphMatrix GM){
+    //清空图(即将图的各边恢复到默认值)
+    static void clearGraph(GraphMatrix GM){
         for (int i = 0; i < GM.VertexNum; i++) {
             for (int j = 0; j < GM.VertexNum; j++) {
                 GM.EdgeWeight[i][j] = GraphMatrix.MaxValue;
             }
         }
-        return true;
     }
 
     //显示图，即显示邻接矩阵,\t为制表符
@@ -92,8 +96,12 @@ public class Graph{
         }
     }
 
-    //遍历图
-    //1.从任意一个顶点开始遍历深度遍历
+        /*-------------------遍历图------------------*/
+    /**
+     * 1.从任意一个顶点开始遍历深度遍历(随机遍历)
+     * @param GM 图的引用
+     * @param n 图的某一个顶点
+     */
     static void deepTravOne(GraphMatrix GM, int n){
         GM.isTrav[n] = 1;//首先遍历指定的顶点
         System.out.println("当前遍历顶点为："+GM.Vertex[n]);
@@ -106,7 +114,11 @@ public class Graph{
 
         }
     }
-    //2.深度优先遍历
+
+    /**
+     * 2.深度优先遍历
+     * @param GM 图的引用
+     */
     static void deepTravGraph(GraphMatrix GM){
         for (int i = 0; i < GM.VertexNum; i++) {
             GM.isTrav[i] = 0; //清除各定点遍历标志
@@ -122,7 +134,10 @@ public class Graph{
         System.out.println();
     }
 
-    //3.广度优先遍历
+    /**
+     * 3.广度优先遍历
+     * @param GM 图的引用
+     */
     static void bfsTravGraph(GraphMatrix GM){
         for (int i = 0; i < GM.VertexNum; i++) {
             GM.isTrav[i] = 0;//初始化遍历标志
@@ -149,18 +164,22 @@ public class Graph{
         }
 }
 
+/**
+ * 定义图的结点
+ */
 class GraphMatrix{
     static final int MaxNum = 20; //图最大顶点数
-    static final int MaxValue = 65535; //最大值
+    static final int MaxValue = 65535; //最大值,用于图的初始化，亦可表示不存在的边
 
     int GType; //图类型，0无向图，1有向图
     int VertexNum;
     int EdgeNum;
 
-    char[] Vertex = new char[MaxNum];
-    int[][] EdgeWeight = new int[MaxNum][MaxNum];
+    char[] Vertex = new char[MaxNum];//存放所有有效顶点
+    int[][] EdgeWeight = new int[MaxNum][MaxNum]; //存放所有有效边
     int[] isTrav = new int[MaxNum]; //顶点遍历状态数组
 
+    /*图的构造函数，在生成图的对象实例的时候初始化图的内容*/
     GraphMatrix(int gType, int vertexNum, int edgeNum)
     {
         this.GType = gType;

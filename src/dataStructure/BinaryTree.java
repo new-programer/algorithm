@@ -38,18 +38,16 @@ public class BinaryTree {
         traverseBinaryTree_D(boot);
     }
 
-    //
+    //1深度遍历二叉树（递归实现）
     private static void traverseBinaryTree_D(TreeNode boot) {
         if(boot != null){
             System.out.println(boot.val);
             traverseBinaryTree_D(boot.leftNode);
             traverseBinaryTree_D(boot.rightNode);
-        }else{
-            return;
         }
     }
 
-    //
+    //2广度遍历二叉树（需要借用队列）
     private static void traverseBinaryTree_W(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
         if(root != null){
@@ -74,7 +72,8 @@ public class BinaryTree {
     //create a binary tree
     public static void  createBinaryTree(TreeNode boot, ArrayList<Integer> values){
         Iterator<Integer> iter = values.iterator();
-        boot.val = values.size() > 0? iter.next():-1;
+        boot.val = values.size() > 0? iter.next():-1; //如果迭代器中有元素，则将第一个元素的值赋给该节点，
+        // 若无则赋值为-1(根结点的值为-1说明该树为空树)
         while(iter.hasNext()){
             insertBinaryTree(boot, iter.next());
         }
@@ -86,14 +85,12 @@ public class BinaryTree {
         if(boot.val >= value){
             if(boot.leftNode == null){
                 boot.leftNode = new TreeNode(value);
-                return;
             }else{
                 insertBinaryTree(boot.leftNode, value);
             }
         }else {
             if(boot.rightNode == null){
                 boot.rightNode = new TreeNode(value);
-                return;
             }else{
                 insertBinaryTree(boot.rightNode, value);
             }

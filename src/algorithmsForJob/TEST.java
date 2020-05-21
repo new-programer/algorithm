@@ -11,6 +11,8 @@ public class TEST{
         TT.next = TT2;
         arrayList.add(TT.val);
         System.out.println(arrayList.size());
+
+        System.out.println("new Date():"+new Date());
     }
     public static ArrayList<Integer> printListFromTailToHead(ListNodeT listNode) {
 

@@ -27,8 +27,9 @@ public class duplicationArray
 
     }
     public boolean duplicate(int[] numbers,int length,int[] duplication) {
-        if (numbers == null || length==0)
+        if (numbers == null || length==0) {
             return false;
+        }
 /*        System.out.println("numbers数组排序前：");
         for (int i = 0; i < length; i++) {
             System.out.println(numbers[i]);
@@ -64,7 +65,7 @@ public class duplicationArray
 //            }
         }
         Iterator<Integer> iterator = set.iterator();
-        var tempdup = 0;
+        int tempdup = 0;
         while (iterator.hasNext()){
             tempdup = iterator.next();
             System.out.println("set:"+tempdup);
