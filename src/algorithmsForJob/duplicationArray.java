@@ -72,10 +72,6 @@ public class duplicationArray
             duplication[j++] = tempdup;
             duplen++;
         }
-        if(duplen == 0){
-            return false;
-        }else {
-            return true;
-        }
+        return duplen != 0;
     }
 }
